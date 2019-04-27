@@ -32,12 +32,14 @@ public class Options : MonoBehaviour {
         if (Controler == Action.water && player.water != 0)
         {
             player.water--;
-            value.Water++;
+           
+            value.CountDownWater();
 
         }else if(Controler == Action.feed && player.manure != 0){
 
             player.manure--;
-            value.Manure++;
+           
+            value.CountDownManure();
           
         }
         else if (Controler == Action.powerUp)
