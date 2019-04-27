@@ -9,6 +9,13 @@ public class PlayerBehaviour : MonoBehaviour {
     public int maxSpeed, speed;
     public int maxStrenght, strenght;
     public bool poisoned;
+    //items
+    [Header("Items")]
+    public int maxItems;
+    public int water, manure;
+    //fruits
+    public enum Fruit { Hp, Speed, Strenght, Antidote}
+    public int[] fruits;
 
     //components
     private Rigidbody2D rb; 
@@ -23,7 +30,11 @@ public class PlayerBehaviour : MonoBehaviour {
         hp = maxHp;
         strenght = maxStrenght;
         poisoned = false;
-	}
+
+        //set fruits
+        fruits = new int[System.Enum.GetValues(typeof(Fruit)).Length];
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
