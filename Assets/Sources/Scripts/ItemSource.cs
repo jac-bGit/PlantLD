@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSource : MonoBehaviour {
+public class ItemSource : Interaction {
 
     public Item item;
     public enum Item { Water, Manure}
 
-    public int activated;
 
 	// Use this for initialization
 	void Start () {
@@ -16,13 +15,9 @@ public class ItemSource : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        PlayerIsIn();
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
 
     //add source
     void TakeSource()

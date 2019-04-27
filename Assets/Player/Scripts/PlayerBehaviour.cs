@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour {
     public int maxHp, hp;
     public int maxSpeed, speed;
     public int maxStrenght, strenght;
-    public bool poisoned;
+    public bool poisoned, death;
     //items
     [Header("Items")]
     public int maxItems;
@@ -34,6 +34,8 @@ public class PlayerBehaviour : MonoBehaviour {
         //set fruits
         fruits = new int[System.Enum.GetValues(typeof(Fruit)).Length];
 
+        //start coroutines
+        StartCoroutine("Poisoned");
     }
 	
 	// Update is called once per frame
@@ -52,4 +54,26 @@ public class PlayerBehaviour : MonoBehaviour {
         Vector2 move = new Vector2(hor * speed * Time.fixedDeltaTime, ver * speed * Time.fixedDeltaTime);
         rb.velocity = move;
     }
+
+    void Die()
+    {
+        if (hp <= 0)
+            death = true;
+        else
+            death = false;
+    }
+
+    IEnumerator Poisoned()
+    {
+        while (true)
+        {
+            if (poisoned)
+                hp -= 2;
+
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    //get carried items
+    public int itemsCount() { return water + manure; }
 }
