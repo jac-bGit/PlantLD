@@ -8,15 +8,20 @@ public class Plant : Interaction
     public int Water = 0;
     public int Manure = 0;
 
-    public override void OnTriggerEnter2D(Collider2D other)
+    public override void OnTriggerStay2D(Collider2D other)
     {
-        base.OnTriggerEnter2D(other);
+        base.OnTriggerStay2D(other);
     }
 
     public override void PlayerIsIn()
     {
         base.PlayerIsIn();
 
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 
 }
