@@ -11,6 +11,9 @@ public class PlayerUI : MonoBehaviour {
     //ui elements
     public Text txtHp;
     public Slider sliderHp;
+    public Text txtWater;
+    public Text txtManure;
+    public Text txtItems;
     [Header("Fruits")]
     public Text txtHpFruit;
     public Text txtSpeedFruit;
@@ -29,6 +32,9 @@ public class PlayerUI : MonoBehaviour {
         //show stats in ui
         txtHp.text = player.hp + " / " + player.maxHp;
         sliderHp.value = (float)player.hp / (float)player.maxHp;
+        txtWater.text = player.water.ToString();
+        txtManure.text = player.manure.ToString();
+        txtItems.text = player.itemsCount().ToString() + " / " + player.strenght;
         //fruits count
         txtHpFruit.text = player.fruits[(int)PlayerBehaviour.Fruit.Hp].ToString();
         txtSpeedFruit.text = player.fruits[(int)PlayerBehaviour.Fruit.Speed].ToString();
@@ -50,7 +56,7 @@ public class PlayerUI : MonoBehaviour {
     {
         if (player.fruits[(int)PlayerBehaviour.Fruit.Speed] > 0 && player.speed < player.maxSpeed)
         {
-            player.speed += (int)((float)player.maxSpeed * 0.5f);
+            player.speed = player.maxSpeed;
             player.fruits[(int)PlayerBehaviour.Fruit.Speed]--;
         }
     }
@@ -59,7 +65,7 @@ public class PlayerUI : MonoBehaviour {
     {
         if (player.fruits[(int)PlayerBehaviour.Fruit.Strenght] > 0 && player.strenght < player.maxStrenght)
         {
-            player.strenght += 2;
+            player.strenght = player.maxStrenght;
             player.fruits[(int)PlayerBehaviour.Fruit.Strenght]--;
         }
     }
