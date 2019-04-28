@@ -145,5 +145,10 @@ public class PlayerBehaviour : MonoBehaviour {
         if (rb.velocity.y == 0)
             anim.SetInteger("velY", 0);
 
+
+        if (rb.velocity.x != 0 || rb.velocity.y != 0)
+            anim.SetBool("moving", true);
+        if (rb.velocity.x == 0 && rb.velocity.y == 0)
+            anim.SetBool("moving", false);
     } 
 }
