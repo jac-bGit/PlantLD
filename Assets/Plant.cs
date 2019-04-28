@@ -6,6 +6,9 @@ public class Plant : Interaction
 {
     //Stats Flower
 
+    public int GrowLevel = 0;
+    public int MaxGrowLevel = 0;
+
     public float WaterTime = 1;
     public float Water = 0;
     public float MaxWater = 0;
@@ -17,7 +20,7 @@ public class Plant : Interaction
     public float FruitSize = 1;
     public float FruitMax = 2;
 
-    bool Growing = false;
+    bool Growed = false;
 
 
     public Transform Fruit;
@@ -44,17 +47,42 @@ public class Plant : Interaction
         if(options.Length != 1)
         {
 
-            if (FruitSize < FruitMax)
-            { 
-                FruitGrow();
+          if (Manure >0 && Water > 0 && GrowLevel != MaxGrowLevel)
+            {
+                
+                FruitSize += 0.01f;
+
+                if(Growed == false)
+                {
+                    PlantGrow();
+                }
+                
             }
-           
-            
-            
-                 
-                WaterUI.localScale = new Vector3(Water, 0.1f,1);
+          
+
+               if(Manure < 0)
+            {
+                Manure = 0;
+                Growed = false;
+            }else if(Water < 0)
+            {
+                Water = 0;
+                Growed = false;
+            }
+               if(GrowLevel != MaxGrowLevel)
+            {
+                WaterUI.localScale = new Vector3(Water, 0.1f, 1);
                 ManureUI.localScale = new Vector3(Manure, 0.1f, 1);
                 Fruit.localScale = new Vector3(FruitSize, FruitSize, FruitSize);
+
+            }else if(GrowLevel == MaxGrowLevel)
+            {
+                Water = 0;
+                Manure = 0;
+                WaterUI.localScale = new Vector3(Water, 0.1f, 1);
+                ManureUI.localScale = new Vector3(Manure, 0.1f, 1);
+            }
+            
                 
         }
     
@@ -62,12 +90,26 @@ public class Plant : Interaction
 
     }
 
+    public void PickUpFruit()
+    {
+        //Tady staty co ti to přidá až sebereš fruit
+        Fruit.localScale = new Vector3(1, 1, 1);
+        GrowLevel = 0;
+    }
+    public void PlantGrow()
+    {
+        if(Growed == false)
+        {
+            GrowLevel++;
+            Growed = true;
+        }
+    }
     public IEnumerator StartCountdownWater()
     {
        
         Water = MaxWater;
 
-        while (Water > 0f)
+        while (Water >= 0f)
         {
             
             yield return new WaitForSeconds(1f);
@@ -80,7 +122,7 @@ public class Plant : Interaction
 
         Manure = MaxManure;
 
-        while (Manure > 0f)
+        while (Manure >= 0f)
         {
             
             yield return new WaitForSeconds(1.0f);
@@ -88,31 +130,8 @@ public class Plant : Interaction
         }
     }
 
-    public IEnumerator Grouwing()
-    {
-        
-        while (FruitSize <= FruitMax)
-        {
-            yield return new WaitForSeconds(1.0f);
-            FruitSize += 0.01f; 
-            if(FruitSize == FruitMax)
-            {
-                break;
-            }
-        }
-       
-        
-    }
 
-    public void FruitGrow()
-    {
-        if(Manure > 0 && Water > 0)
-        {   
-            StartCoroutine(Grouwing());
-        }
-      
 
-    }
     public void CountDownWater()
     {
         StartCoroutine(StartCountdownWater());
