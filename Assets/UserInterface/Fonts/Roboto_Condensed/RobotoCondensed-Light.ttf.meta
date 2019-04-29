@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7e8dade946888994b9346b86c3edcc81
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Roboto Condensed Light
+  fontNames:
+  - Roboto Condensed Light
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 05ee401d23ae3d24c913e1dcb486c945, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

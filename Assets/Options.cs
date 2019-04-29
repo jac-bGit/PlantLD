@@ -9,7 +9,7 @@ public class Options : MonoBehaviour {
     public PlayerBehaviour player;
     public MainPlant mainPlant;
 
-   public enum Action
+    public enum Action
     {
         feed,water,powerUp,addFeed,addWater,Grab
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSource : Interaction {
+public class ItemSource : Usable {
 
     public Item item;
     public enum Item { Water, Manure}
@@ -10,22 +10,32 @@ public class ItemSource : Interaction {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        OnStart();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        PlayerIsIn();
-	}
+        OnUpdate();
+    }
 
+
+    public void OnTriggerStay2D(Collider2D col)
+    {
+        TriggerEnter(col);
+    }
+
+    public void OnTriggerExit2D(Collider2D col)
+    {
+        TriggerExit(col);
+    }
 
     //add source
-    void TakeSource()
+    public void TakeSource()
     {
         PlayerBehaviour pb = FindObjectOfType<PlayerBehaviour>();
 
         //add item
-        if (pb.water + pb.manure < pb.strenght)
+        if (pb.itemsCount() < pb.strenght)
         {
             switch (item)
             {

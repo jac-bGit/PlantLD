@@ -17,6 +17,10 @@ public class PlayerBehaviour : MonoBehaviour {
     public enum Fruit { Hp, Speed, Strenght, Antidote}
     public int[] fruits;
 
+    //game state
+    public enum GameplayState { Playing, Pause, Lose, Win}
+    public static GameplayState gameplayState; 
+
     //components
     private Rigidbody2D rb;
     private Animator anim;
@@ -43,12 +47,16 @@ public class PlayerBehaviour : MonoBehaviour {
         StartCoroutine(RepairHp());
         StartCoroutine(RepairSpeed());
         StartCoroutine(RepairStrenght());
+
+        gameplayState = GameplayState.Playing;
     }
 	
 	// Update is called once per frame
 	void Update () {
         Movement();
         Animations();
+        SettingUpStats();
+        GameState();
     }
 
     //moving 
@@ -61,6 +69,24 @@ public class PlayerBehaviour : MonoBehaviour {
         //move
         Vector2 move = new Vector2(hor * speed * Time.fixedDeltaTime, ver * speed * Time.fixedDeltaTime);
         rb.velocity = move;
+    }
+
+    void SettingUpStats()
+    {
+        if (hp > maxHp * 2)
+            hp = maxHp * 2;
+        if (speed > maxSpeed * 2)
+            speed = maxSpeed * 2;
+        if (speed < maxSpeed / 2f)
+        {
+            float res = (maxSpeed / 2f);
+            Debug.Log(res);
+            speed = (int)res;
+        }
+        if (strenght > maxStrenght * 2)
+            strenght = maxStrenght * 2;
+        if (strenght < 1)
+            strenght = 1;
     }
 
     void Die()
@@ -151,4 +177,36 @@ public class PlayerBehaviour : MonoBehaviour {
         if (rb.velocity.x == 0 && rb.velocity.y == 0)
             anim.SetBool("moving", false);
     } 
+
+
+    //control game states
+    void GameState()
+    {
+        //change states
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(gameplayState == GameplayState.Pause)
+                gameplayState = GameplayState.Playing;
+            else if (gameplayState == GameplayState.Playing)
+                gameplayState = GameplayState.Pause;
+        }
+
+        //die
+        if (hp <= 0)
+            gameplayState = GameplayState.Lose;
+
+        //switch state
+        switch (gameplayState)
+        {
+            case GameplayState.Playing:
+                Time.timeScale = 1;
+                break;
+            case GameplayState.Pause:
+                Time.timeScale = 0;
+                break;
+            case GameplayState.Lose:
+                Time.timeScale = 0;
+                break;
+        }
+    }
 }

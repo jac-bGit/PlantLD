@@ -19,6 +19,7 @@ public class PlayerUI : MonoBehaviour {
     public Text txtSpeedFruit;
     public Text txtStrenghtFruit;
     public Text txtAntidoteFruit;
+    public Image imgAntidoteFruit;
 
     // Use this for initialization
     void Start () {
@@ -45,7 +46,7 @@ public class PlayerUI : MonoBehaviour {
     //on fruit click
     public void HpFruit()
     {
-        if (player.fruits[(int)PlayerBehaviour.Fruit.Hp] > 0 && player.hp < player.maxHp)
+        if (player.fruits[(int)PlayerBehaviour.Fruit.Hp] > 0 && player.hp < player.maxHp * 2)
         {
             player.hp += (int)((float)player.maxHp * 0.25f);
             player.fruits[(int)PlayerBehaviour.Fruit.Hp]--;
